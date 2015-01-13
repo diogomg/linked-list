@@ -12,8 +12,11 @@ test: test.c list.c
 	$(CC) -fprofile-arcs -ftest-coverage -g test.c list.c -lm -o test
 	./test
 
+coverage: list.gcda
+	gcov list.gcda
+
 run:
 	./list
 
 clean: *.o
-	rm *.o *.gc*
+	rm *.o *.gc* main list test
