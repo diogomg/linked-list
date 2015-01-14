@@ -8,14 +8,26 @@ listNode* initNode(keyType key){
     return node;
 }
 
-void insertFront(listNode *head, keyType key){}
+void insertAfter(listNode **node, keyType key){}
 
-void insertBack(listNode *head, keyType key){}
+void insertBefore(listNode **node, keyType key){
+    listNode *new_node = initNode(key);
+    if(*node){
+        new_node->next = *node;
+        new_node->prev = (*node)->prev;
+        (*node)->prev = new_node;
+    }
+    else{
+        new_node->next = new_node;
+        new_node->prev = new_node;
+    }
+    (*node) = new_node;
+}
 
-void removeFront(listNode *head){}
+void removeAfter(listNode *node){}
 
-void removeBack(listNode *head){}
+void removeBefore(listNode *node){}
 
-void printInOrder(listNode *head){}
+void printInOrder(listNode *node){}
 
-void printReverse(listNode *head){}
+void printReverse(listNode *node){}
