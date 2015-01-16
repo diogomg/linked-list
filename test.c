@@ -15,6 +15,26 @@ TEST init_node_success(){
     PASS();
 }
 
+TEST list_is_empty(){
+
+    listNode *node = NULL;
+
+    ASSERT( listIsEmpty(&node) == 0);
+
+    PASS();
+}
+
+TEST list_isnt_empty(){
+
+    listNode *node = NULL;
+
+    insertBefore(&node, 1);
+
+    ASSERT( listIsEmpty(&node) == 1);
+
+    PASS();
+}
+
 TEST insert_a_node_at_head_in_a_empty_list(){
 
     listNode *node = NULL;
@@ -152,6 +172,8 @@ SUITE( insert ){
     RUN_TEST( insert_a_node_at_tail_in_a_list_with_two_elements );
     RUN_TEST( insert_a_node_at_middle_in_a_list_with_two_elements_using_insertBefore_method );
     RUN_TEST( insert_a_node_at_middle_in_a_list_with_two_elements_using_insertAfter_method );
+    RUN_TEST( list_is_empty );
+    RUN_TEST( list_isnt_empty );
 }
 
 SUITE( delete ){

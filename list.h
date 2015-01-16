@@ -11,6 +11,8 @@ typedef struct listNode{
 
 listNode* initNode(keyType);
 
+int listIsEmpty(listNode **node);
+
 void insertAfter(listNode **node, keyType key);
 
 void insertBefore(listNode **node, keyType key);

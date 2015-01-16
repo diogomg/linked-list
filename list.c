@@ -8,9 +8,13 @@ listNode* initNode(keyType key){
     return node;
 }
 
+int listIsEmpty(listNode **node){
+    return *node ? 1 : 0;
+}
+
 void insertAfter(listNode **node, keyType key){
     listNode *new_node = initNode(key);
-    if(*node){
+    if(listIsEmpty(node)){
         new_node->prev = *node;
         new_node->next = (*node)->next;
         (*node)->next->prev = new_node;
@@ -25,7 +29,7 @@ void insertAfter(listNode **node, keyType key){
 
 void insertBefore(listNode **node, keyType key){
     listNode *new_node = initNode(key);
-    if(*node){
+    if(listIsEmpty(node)){
         new_node->next = *node;
         new_node->prev = (*node)->prev;
         (*node)->prev = new_node;
