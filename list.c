@@ -45,14 +45,18 @@ void printInOrder(listNode *node){
     listNode *aux = node;
     if(!aux)
         return;
-    //do{
-    int i;
-    for (i = 0; i < 3; i++) {
+    do{
         printf("add: %p\tkey: %d\tprev: %p\tnext: %p\n", aux, aux->key, aux->prev, aux->next);
         aux = aux->next;
-    }
-    puts("");
-    //}while(aux != node);
+    }while(aux != node);
 }
 
-void printReverse(listNode *node){}
+void printReverse(listNode *node){
+    listNode *aux = node;
+    if(!aux)
+        return;
+    do{
+        printf("add: %p\tkey: %d\tprev: %p\tnext: %p\n", aux, aux->key, aux->prev, aux->next);
+        aux = aux->prev;
+    }while(aux != node);
+}
