@@ -93,6 +93,43 @@ TEST insert_a_node_at_tail_in_a_list_with_two_elements(){
 
     insertAfter(&node, 1);
     insertAfter(&node, 2);
+    insertAfter(&(node->next), 3);
+
+    ASSERT( node->key == 1 );
+    ASSERT( node->next->key == 2 );
+    ASSERT( node->next->next->key == 3 );
+    ASSERT( node->prev == node->next->next );
+    ASSERT( node->next->prev == node);
+    ASSERT( node->next->next->prev == node->next);
+
+
+    PASS();
+}
+
+TEST insert_a_node_at_middle_in_a_list_with_two_elements_using_insertBefore_method(){
+
+    listNode *node = NULL;
+
+    insertAfter(&node, 1);
+    insertAfter(&node, 2);
+    insertBefore(&(node->next), 3);
+
+    ASSERT( node->key == 1 );
+    ASSERT( node->next->key == 3 );
+    ASSERT( node->next->next->key == 2 );
+    ASSERT( node->prev == node->next->next );
+    ASSERT( node->next->prev == node);
+    ASSERT( node->next->next->prev == node->next);
+
+    PASS();
+}
+
+TEST insert_a_node_at_middle_in_a_list_with_two_elements_using_insertAfter_method(){
+
+    listNode *node = NULL;
+
+    insertAfter(&node, 1);
+    insertAfter(&node, 2);
     insertAfter(&node, 3);
 
     ASSERT( node->key == 1);
@@ -113,6 +150,8 @@ SUITE( insert ){
     RUN_TEST( insert_a_node_at_tail_in_a_empty_list );
     RUN_TEST( insert_a_node_at_tail_in_a_list_with_one_element );
     RUN_TEST( insert_a_node_at_tail_in_a_list_with_two_elements );
+    RUN_TEST( insert_a_node_at_middle_in_a_list_with_two_elements_using_insertBefore_method );
+    RUN_TEST( insert_a_node_at_middle_in_a_list_with_two_elements_using_insertAfter_method );
 }
 
 SUITE( delete ){
