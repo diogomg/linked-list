@@ -8,7 +8,20 @@ listNode* initNode(keyType key){
     return node;
 }
 
-void insertAfter(listNode **node, keyType key){}
+void insertAfter(listNode **node, keyType key){
+    listNode *new_node = initNode(key);
+    if(*node){
+        new_node->prev = *node;
+        new_node->next = (*node)->next;
+        (*node)->next->prev = new_node;
+        (*node)->next = new_node;
+    }
+    else{
+        new_node->next = new_node;
+        new_node->prev = new_node;
+        (*node) = new_node;
+    }
+}
 
 void insertBefore(listNode **node, keyType key){
     listNode *new_node = initNode(key);
@@ -28,6 +41,18 @@ void removeAfter(listNode *node){}
 
 void removeBefore(listNode *node){}
 
-void printInOrder(listNode *node){}
+void printInOrder(listNode *node){
+    listNode *aux = node;
+    if(!aux)
+        return;
+    //do{
+    int i;
+    for (i = 0; i < 3; i++) {
+        printf("add: %p\tkey: %d\tprev: %p\tnext: %p\n", aux, aux->key, aux->prev, aux->next);
+        aux = aux->next;
+    }
+    puts("");
+    //}while(aux != node);
+}
 
 void printReverse(listNode *node){}

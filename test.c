@@ -15,7 +15,7 @@ TEST init_node_success(){
     PASS();
 }
 
-TEST insert_a_node_at_tail_in_a_empty_list(){
+TEST insert_a_node_at_head_in_a_empty_list(){
 
     listNode *node = NULL;
 
@@ -28,7 +28,7 @@ TEST insert_a_node_at_tail_in_a_empty_list(){
     PASS();
 }
 
-TEST insert_a_node_at_tail_in_a_list_with_one_element(){
+TEST insert_a_node_at_head_in_a_list_with_one_element(){
 
     listNode *node = NULL;
 
@@ -42,7 +42,7 @@ TEST insert_a_node_at_tail_in_a_list_with_one_element(){
     PASS();
 }
 
-TEST insert_a_node_at_tail_in_a_list_with_two_elements(){
+TEST insert_a_node_at_head_in_a_list_with_two_elements(){
 
     listNode *node = NULL;
 
@@ -57,13 +57,59 @@ TEST insert_a_node_at_tail_in_a_list_with_two_elements(){
     ASSERT( node->next->prev == node);
     ASSERT( node->next->next->prev == node->next);
 
-    printInOrder(node);
+    PASS();
+}
+
+TEST insert_a_node_at_tail_in_a_empty_list(){
+
+    listNode *node = NULL;
+
+    insertAfter(&node, 1);
+
+    ASSERT( node->key == 1);
+    ASSERT( node->next == node);
+    ASSERT( node->prev == node);
+
+    PASS();
+}
+
+TEST insert_a_node_at_tail_in_a_list_with_one_element(){
+
+    listNode *node = NULL;
+
+    insertAfter(&node, 1);
+    insertAfter(&node, 2);
+
+    ASSERT( node->key == 1);
+    ASSERT( node->next->key == 2);
+    ASSERT( node->prev == node->next);
+
+    PASS();
+}
+
+TEST insert_a_node_at_tail_in_a_list_with_two_elements(){
+
+    listNode *node = NULL;
+
+    insertAfter(&node, 1);
+    insertAfter(&node, 2);
+    insertAfter(&node, 3);
+
+    ASSERT( node->key == 1);
+    ASSERT( node->next->key == 3);
+    ASSERT( node->next->next->key == 2);
+    ASSERT( node->prev == node->next->next);
+    ASSERT( node->next->prev == node);
+    ASSERT( node->next->next->prev == node->next);
 
     PASS();
 }
 
 SUITE( insert ){
     RUN_TEST( init_node_success );
+    RUN_TEST( insert_a_node_at_head_in_a_empty_list );
+    RUN_TEST( insert_a_node_at_head_in_a_list_with_one_element );
+    RUN_TEST( insert_a_node_at_head_in_a_list_with_two_elements );
     RUN_TEST( insert_a_node_at_tail_in_a_empty_list );
     RUN_TEST( insert_a_node_at_tail_in_a_list_with_one_element );
     RUN_TEST( insert_a_node_at_tail_in_a_list_with_two_elements );
