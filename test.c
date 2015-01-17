@@ -35,6 +35,26 @@ TEST list_isnt_empty(){
     PASS();
 }
 
+TEST is_member(){
+
+    listNode *node = NULL;
+
+    insertBefore(&node, 1);
+
+    ASSERT( member(&node, 1) != NULL );
+
+    PASS();
+}
+
+TEST isnt_member(){
+
+    listNode *node = NULL;
+
+    ASSERT( member(&node, 1) == NULL);
+
+    PASS();
+}
+
 TEST insert_a_node_at_head_in_a_empty_list(){
 
     listNode *node = NULL;
@@ -162,8 +182,15 @@ TEST insert_a_node_at_middle_in_a_list_with_two_elements_using_insertAfter_metho
     PASS();
 }
 
-SUITE( insert ){
+SUITE( misc ){
     RUN_TEST( init_node_success );
+    RUN_TEST( list_is_empty );
+    RUN_TEST( list_isnt_empty );
+    RUN_TEST( is_member );
+    RUN_TEST( isnt_member );
+}
+
+SUITE( insert ){
     RUN_TEST( insert_a_node_at_head_in_a_empty_list );
     RUN_TEST( insert_a_node_at_head_in_a_list_with_one_element );
     RUN_TEST( insert_a_node_at_head_in_a_list_with_two_elements );
@@ -172,8 +199,6 @@ SUITE( insert ){
     RUN_TEST( insert_a_node_at_tail_in_a_list_with_two_elements );
     RUN_TEST( insert_a_node_at_middle_in_a_list_with_two_elements_using_insertBefore_method );
     RUN_TEST( insert_a_node_at_middle_in_a_list_with_two_elements_using_insertAfter_method );
-    RUN_TEST( list_is_empty );
-    RUN_TEST( list_isnt_empty );
 }
 
 SUITE( delete ){
@@ -185,6 +210,7 @@ GREATEST_MAIN_DEFS();
 int main( int argc, char** argv ){
 
     GREATEST_MAIN_BEGIN();
+    RUN_SUITE( misc );
     RUN_SUITE( insert );
     RUN_SUITE( delete );
     GREATEST_MAIN_END();

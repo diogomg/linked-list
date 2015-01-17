@@ -12,6 +12,18 @@ int listIsEmpty(listNode **node){
     return *node ? 1 : 0;
 }
 
+listNode* member(listNode **node, keyType key){
+    listNode *aux = *node;
+
+    if(*node == NULL)
+        return NULL;
+    do{
+        if(aux->key == key)
+            return aux;
+    }while(aux->next != *node);
+    return NULL;
+}
+
 void insertAfter(listNode **node, keyType key){
     listNode *new_node = initNode(key);
     if(listIsEmpty(node)){
@@ -41,9 +53,7 @@ void insertBefore(listNode **node, keyType key){
     (*node) = new_node;
 }
 
-void removeAfter(listNode *node){}
-
-void removeBefore(listNode *node){}
+void removeByKey(listNode **node, keyType key){}
 
 void printInOrder(listNode *node){
     listNode *aux = node;

@@ -19,4 +19,4 @@ run:
 	./list
 
 clean: *.o
-	rm *.o *.gc* main list test
+	rm *.o *.gc* list test

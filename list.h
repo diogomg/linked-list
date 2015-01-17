@@ -13,13 +13,13 @@ listNode* initNode(keyType);
 
 int listIsEmpty(listNode **node);
 
+listNode* member(listNode **node, keyType key);
+
 void insertAfter(listNode **node, keyType key);
 
 void insertBefore(listNode **node, keyType key);
 
-void removeAfter(listNode *node);
-
-void removeBefore(listNode *node);
+void removeByKey(listNode **node, keyType key);
 
 void printInOrder(listNode *node);
 
