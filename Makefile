@@ -1,6 +1,6 @@
 CC = gcc
 
-all: compile clean run
+all: compile run clean
 
 compile: *.c
 	$(CC) -fprofile-arcs -ftest-coverage -g main.c list.c -lm -o list
