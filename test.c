@@ -35,7 +35,7 @@ TEST list_isnt_empty(){
     PASS();
 }
 
-TEST is_member(){
+TEST is_member_in_a_list_with_one_element(){
 
     listNode *node = NULL;
 
@@ -46,11 +46,79 @@ TEST is_member(){
     PASS();
 }
 
-TEST isnt_member(){
+TEST is_member_in_a_list_with_two_elements(){
+
+    listNode *node = NULL;
+
+    insertBefore(&node, 1);
+    insertBefore(&node, 2);
+
+    ASSERT( member(&node, 1) != NULL );
+    ASSERT( member(&node, 2) != NULL );
+
+    PASS();
+}
+
+TEST is_member_in_a_list_with_three_elements(){
+
+    listNode *node = NULL;
+
+    insertBefore(&node, 1);
+    insertBefore(&node, 2);
+    insertBefore(&node, 3);
+
+    ASSERT( member(&node, 1) != NULL );
+    ASSERT( member(&node, 2) != NULL );
+    ASSERT( member(&node, 3) != NULL );
+
+    PASS();
+}
+
+TEST isnt_member_in_a_list_without_elements(){
 
     listNode *node = NULL;
 
     ASSERT( member(&node, 1) == NULL);
+
+    PASS();
+}
+
+
+TEST isnt_member_in_a_list_with_one_element(){
+
+    listNode *node = NULL;
+
+    insertBefore(&node, 1);
+
+    ASSERT( member(&node, 1) != NULL );
+
+    PASS();
+}
+
+TEST isnt_member_in_a_list_with_two_elements(){
+
+    listNode *node = NULL;
+
+    insertBefore(&node, 1);
+    insertBefore(&node, 2);
+
+    ASSERT( member(&node, 1) != NULL );
+    ASSERT( member(&node, 2) != NULL );
+
+    PASS();
+}
+
+TEST isnt_member_in_a_list_with_three_elements(){
+
+    listNode *node = NULL;
+
+    insertBefore(&node, 1);
+    insertBefore(&node, 2);
+    insertBefore(&node, 3);
+
+    ASSERT( member(&node, 1) != NULL );
+    ASSERT( member(&node, 2) != NULL );
+    ASSERT( member(&node, 3) != NULL );
 
     PASS();
 }
@@ -75,9 +143,12 @@ TEST insert_a_node_at_head_in_a_list_with_one_element(){
     insertBefore(&node, 1);
     insertBefore(&node, 2);
 
-    ASSERT( node->key == 2);
-    ASSERT( node->next->key == 1);
+    ASSERT( node->key == 1);
+    ASSERT( node->next->key == 2);
+    ASSERT( node->prev->key == 2);
     ASSERT( node->prev == node->next);
+    ASSERT( node->next->prev == node);
+    ASSERT( node->prev->next == node);
 
     PASS();
 }
@@ -90,9 +161,9 @@ TEST insert_a_node_at_head_in_a_list_with_two_elements(){
     insertBefore(&node, 2);
     insertBefore(&node, 3);
 
-    ASSERT( node->key == 3);
+    ASSERT( node->key == 1);
     ASSERT( node->next->key == 2);
-    ASSERT( node->next->next->key == 1);
+    ASSERT( node->next->next->key == 3);
     ASSERT( node->prev == node->next->next);
     ASSERT( node->next->prev == node);
     ASSERT( node->next->next->prev == node->next);
@@ -133,7 +204,8 @@ TEST insert_a_node_at_tail_in_a_list_with_two_elements(){
 
     insertAfter(&node, 1);
     insertAfter(&node, 2);
-    insertAfter(&(node->next), 3);
+    listNode *tail = node->next;
+    insertAfter(&tail, 3);
 
     ASSERT( node->key == 1 );
     ASSERT( node->next->key == 2 );
@@ -152,7 +224,8 @@ TEST insert_a_node_at_middle_in_a_list_with_two_elements_using_insertBefore_meth
 
     insertAfter(&node, 1);
     insertAfter(&node, 2);
-    insertBefore(&(node->next), 3);
+    listNode *middle = node->next;
+    insertBefore(&middle, 3);
 
     ASSERT( node->key == 1 );
     ASSERT( node->next->key == 3 );
@@ -182,12 +255,77 @@ TEST insert_a_node_at_middle_in_a_list_with_two_elements_using_insertAfter_metho
     PASS();
 }
 
+TEST try_delete_a_node_in_a_list_with_one_element (){
+
+    listNode *node = NULL;
+
+    insertAfter(&node, 1);
+
+    removeByKey(&node, 0);
+
+    ASSERT( node != NULL);
+
+    PASS();
+}
+
+TEST delete_a_node_in_a_list_with_one_element (){
+
+    listNode *node = NULL;
+
+    insertAfter(&node, 1);
+
+    removeByKey(&node, 1);
+
+    ASSERT( node == NULL);
+
+    PASS();
+}
+
+TEST delete_a_node_in_a_list_with_two_elements (){
+
+    listNode *node = NULL;
+
+    insertAfter(&node, 1);
+    insertAfter(&node, 2);
+
+    removeByKey(&node, 2);
+
+    ASSERT( node->key == 1);
+    ASSERT( node->next == node);
+    ASSERT( node->prev == node);
+
+    PASS();
+}
+
+TEST delete_a_node_in_a_list_with_three_elements (){
+
+    listNode *node = NULL;
+
+    insertAfter(&node, 1);
+    insertAfter(&node, 2);
+    insertAfter(&node, 3);
+
+    removeByKey(&node, 3);
+
+    ASSERT( node->next != node);
+    ASSERT( node->prev != node);
+    ASSERT( node->next->prev == node);
+    ASSERT( node->prev->next == node);
+
+    PASS();
+}
+
 SUITE( misc ){
     RUN_TEST( init_node_success );
     RUN_TEST( list_is_empty );
     RUN_TEST( list_isnt_empty );
-    RUN_TEST( is_member );
-    RUN_TEST( isnt_member );
+    RUN_TEST( is_member_in_a_list_with_one_element );
+    RUN_TEST( is_member_in_a_list_with_two_elements );
+    RUN_TEST( is_member_in_a_list_with_three_elements );
+    RUN_TEST( isnt_member_in_a_list_without_elements );
+    RUN_TEST( isnt_member_in_a_list_with_one_element );
+    RUN_TEST( isnt_member_in_a_list_with_two_elements );
+    RUN_TEST( isnt_member_in_a_list_with_three_elements );
 }
 
 SUITE( insert ){
@@ -202,7 +340,10 @@ SUITE( insert ){
 }
 
 SUITE( delete ){
-
+    RUN_TEST( try_delete_a_node_in_a_list_with_one_element );
+    RUN_TEST( delete_a_node_in_a_list_with_one_element );
+    RUN_TEST( delete_a_node_in_a_list_with_two_elements );
+    RUN_TEST( delete_a_node_in_a_list_with_three_elements );
 }
 
 GREATEST_MAIN_DEFS();

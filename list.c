@@ -20,7 +20,8 @@ listNode* member(listNode **node, keyType key){
     do{
         if(aux->key == key)
             return aux;
-    }while(aux->next != *node);
+        aux = aux->next;
+    }while(aux != *node);
     return NULL;
 }
 
@@ -44,16 +45,29 @@ void insertBefore(listNode **node, keyType key){
     if(listIsEmpty(node)){
         new_node->next = *node;
         new_node->prev = (*node)->prev;
+        ((*node)->prev)->next = new_node;
         (*node)->prev = new_node;
     }
     else{
         new_node->next = new_node;
         new_node->prev = new_node;
+        (*node) = new_node;
     }
-    (*node) = new_node;
 }
 
-void removeByKey(listNode **node, keyType key){}
+void removeByKey(listNode **node, keyType key){
+    listNode *aux = member(node, key);
+    if(aux == NULL)
+        return;
+    if(aux == *node && aux->next == *node){
+        *node = NULL;
+    }
+    else{
+        aux->prev->next = aux->next;
+        aux->next->prev = aux->prev;
+    }
+    free(aux);
+}
 
 void printInOrder(listNode *node){
     listNode *aux = node;
