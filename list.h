@@ -24,3 +24,5 @@ void removeByKey(listNode **node, keyType key);
 void printInOrder(listNode *node);
 
 void printReverse(listNode *node);
+
+void merge(listNode **first_list, listNode **second_list);
