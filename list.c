@@ -90,8 +90,8 @@ void printReverse(listNode *node){
 }
 
 void merge(listNode **first_list, listNode **second_list){
+    (*first_list)->next->prev = (*second_list)->prev;
+    (*second_list)->prev->next = (*first_list)->next;
     (*first_list)->next = *second_list;
-    (*second_list)->prev->next = (*first_list)->prev;
-    (*first_list)->prev->prev = (*second_list)->prev;
     (*second_list)->prev = *first_list;
 }

@@ -215,6 +215,60 @@ TEST merge_two_lists_with_two_nodes_each(){
     PASS();
 }
 
+TEST merge_two_lists_firstList_has_three_nodes_and_second_has_one_node(){
+
+    listNode *node = NULL;
+    insertAfter(&node, 1);
+    insertAfter(&node, 2);
+    insertBefore(&node, 3);
+
+    listNode *node2 = NULL;
+    insertAfter(&node2, 4);
+
+    merge(&node, &node2);
+
+    ASSERT( node->key == 1 );
+    ASSERT( node->prev->key == 3);
+    ASSERT( node->next == node2);
+    ASSERT( node->prev->next == node );
+    ASSERT( node->prev->prev->key == 2 );
+    ASSERT( node->prev->prev->prev == node2 );
+    ASSERT( node->prev->prev->next == node->prev );
+    ASSERT( node2->key == 4 );
+    ASSERT( node2->prev == node );
+    ASSERT( node2->next->key == 2 );
+
+    PASS();
+}
+
+/*TEST merge_two_lists_with_two_nodes_each(){
+
+    listNode *node = NULL;
+    insertAfter(&node, 1);
+    insertAfter(&node, 2);
+
+    listNode *node2 = NULL;
+    insertAfter(&node2, 3);
+    insertAfter(&node2, 4);
+
+    merge(&node, &node2);
+
+    ASSERT( node->key == 1 );
+    ASSERT( node->prev->key == 2);
+    ASSERT( node->next == node2);
+    ASSERT( node->prev->next == node );
+    ASSERT( node->prev->prev == node2->next );
+    ASSERT( node2->key == 3 );
+    ASSERT( node2->prev == node );
+    ASSERT( node2->next->key == 4 );
+    ASSERT( node2->next->prev == node2 );
+    ASSERT( node2->next->next == node->prev );
+
+
+
+    PASS();
+}*/
+
 TEST insert_a_node_at_head_in_a_empty_list(){
 
     listNode *node = NULL;
@@ -422,6 +476,7 @@ SUITE( misc ){
     RUN_TEST( merge_two_lists_firstList_has_two_nodes_secondList_has_one_node );
     RUN_TEST( merge_two_lists_firstList_has_one_node_secondList_has_two_nodes );
     RUN_TEST( merge_two_lists_with_two_nodes_each );
+    RUN_TEST( merge_two_lists_firstList_has_three_nodes_and_second_has_one_node );
 }
 
 SUITE( insert ){
